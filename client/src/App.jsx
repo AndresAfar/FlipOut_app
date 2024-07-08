@@ -1,16 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+
+import { Login } from './pages/Auth/Login';
+import { Register } from './pages/Auth/Register';
+import { Home } from './pages/Auth/Home';
+
+import { Navbar } from './components/Navbar';
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  const hideNavbar = location.pathname === '/login' || '/register';
 
   return (
     <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        {!hideNavbar && <Navbar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
     </>
   )
 }
